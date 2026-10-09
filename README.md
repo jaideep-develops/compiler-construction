@@ -1,21 +1,60 @@
-# Compiler Construction Lab
+# Experiment 5: Source Code Optimization
 
-Welcome to my Compiler Construction Lab repository.
-This repository contains laboratory experiments,
-source code and documentation for academic work.
+**Course Outcome:** CO5
 
-## Lab Experiments Index
+## Aim
+To demonstrate source code optimization using operator strength reduction, dead code elimination and frequency reduction.
 
-| Experiment | Title | Source Code | Documentation |
-|---|---|---|---|
-| 05 | Source Code Optimization | [View Code](Experiment_No.5/Source_code_optimization.c) | [README](Experiment_No.5/README.md) |
-| 06 | Design of a Simple High-Level Language (MiniLang) | [View Code](Experiment_No.6/minLanguage.c) | [README](Experiment_No.6/README.md) |
-| 07 | Lexical Analyzer Using LEX | [View Code](Experiment_No.7/lexer.l) | [README](Experiment_No.7/README.md) |
+## Theory
+Code optimization improves intermediate or target code without changing the program's meaning.
 
-## Technologies
-- C Programming Language
-- Lex/Flex
-- GCC Compiler
+## A. Operator Strength Reduction
+Before:
+```c
+x = i * 2;
+```
+After:
+```c
+x = i + i;
+```
 
-## Purpose
-Academic laboratory submission for Compiler Construction.
+## B. Dead Code Elimination
+Before:
+```c
+int a = 10;
+int b = 20;
+int c = a + b;
+int x = 100;
+printf("%d", c);
+```
+After:
+```c
+int a = 10;
+int b = 20;
+int c = a + b;
+printf("%d", c);
+```
+The variable x is never used, so its declaration and assignment can be removed.
+
+## C. Frequency Reduction / Loop-Invariant Code Motion
+Before:
+```c
+for (i = 0; i < 100; i++) {
+    x = a * b;
+    y = x + i;
+}
+```
+After:
+```c
+x = a * b;
+for (i = 0; i < 100; i++) {
+    y = x + i;
+}
+```
+The computation a * b is moved outside the loop.
+
+## Source Code
+[View C Program](Source_code_optimization.c)
+
+## Result
+The experiment demonstrates source code optimization techniques.
